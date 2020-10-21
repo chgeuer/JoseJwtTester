@@ -8,7 +8,6 @@
 
 function base64_for_token {
     local base64Content="$1"
-    # echo "$( echo -n "${base64Content}" | sed -E s/\+/-/ | sed -E s/\//_/ | sed -E s/=+$// )"
 
     echo "$( echo -n "${base64Content}" | sed s/\+/-/g | sed -E sQ/Q_Qg | sed -E s/=+$//)"
 }

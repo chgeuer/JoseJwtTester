@@ -1,9 +1,6 @@
 ﻿namespace JoseJwtTester
 {
     using System;
-    using System.Linq;
-    using System.Security.Cryptography;
-    using System.Text;
     using System.Text.Json;
     using System.Text.Json.Serialization;
     using Jose; // <PackageReference Include="jose-jwt" Version="2.6.0" />
@@ -52,32 +49,30 @@
             }
         }
         
-        public static byte[] StringToByteArray(string hex)
-        {
-            return Enumerable.Range(0, hex.Length)
-                             .Where(x => x % 2 == 0)
-                             .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
-                             .ToArray();
-        }
+        //public static byte[] StringToByteArray(string hex)
+        //{
+        //    return Enumerable.Range(0, hex.Length)
+        //                     .Where(x => x % 2 == 0)
+        //                     .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
+        //                     .ToArray();
+        //}
 
-        public static string ByteArrayToString(byte[] ba)
-        {
-            return BitConverter.ToString(ba).Replace("-", "");
-        }
+        //public static string ByteArrayToString(byte[] ba)
+        //{
+        //    return BitConverter.ToString(ba).Replace("-", "");
+        //}
 
-        public static string hmac_sha256(string base64Key, string plaintext)
-        {
-            var hmac = HMAC.Create("HMACSHA256");
-            hmac.Key = Convert.FromBase64String(base64Key);
-            var hashed = hmac.ComputeHash(Encoding.UTF8.GetBytes(plaintext));
-            return Convert.ToBase64String(hashed);
-        }
+        //public static string hmac_sha256(string base64Key, string plaintext)
+        //{
+        //    var hmac = HMAC.Create("HMACSHA256");
+        //    hmac.Key = Convert.FromBase64String(base64Key);
+        //    var hashed = hmac.ComputeHash(Encoding.UTF8.GetBytes(plaintext));
+        //    return Convert.ToBase64String(hashed);
+        //}
 
         static void Main(string[] args)
         {
             var signingKey = "pDzCAKG9KSaCWY2kLaqf0UWJ89i/gy/6IGvndSWe4eo=";
-
-            // Console.WriteLine($"HMAC: {hmac_sha256("pDzCAKG9KSaCWY2kLaqf0UWJ89i/gy/6IGvndSWe4eo=", "Hello world!")}");
 
             var request = new ApplicationCreationRequest
             {
@@ -88,7 +83,6 @@
             };
 
             string token = SignRequest(signingKey, request);
-            token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRJZCI6ImNoZ2V1ZXJmdGUub25taWNyb3NvZnQuY29tIiwic3Vic2NyaXB0aW9uSWQiOiJmYjdmZGMyNi1iMGU1LTQ1YjYtODExOS03YmM0OGJjMTJlNGUiLCJ0aW1lU3RhbXAiOiIyMDIwLTEwLTIxVDEyOjE3OjU4WiJ9.RBvM31ztyN5fvuwngD-6RvDGCchiEapClajUkGj7ZR8";
 
             Console.WriteLine($".NET token: {token}");
 
@@ -104,8 +98,6 @@
                     Console.Error.WriteLine("Invalid request");
                     break;
             }
-
-            // FunctionalOverload();
         }
 
         #region A bit too much lambda
