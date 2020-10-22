@@ -84,6 +84,8 @@
 
             string token = SignRequest(signingKey, request);
 
+            Console.Out.Write("Enter token: "); token = Console.ReadLine().Trim();
+
             Console.WriteLine($".NET token: {token}");
 
             bool noTampering = true;
